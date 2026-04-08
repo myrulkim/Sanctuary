@@ -1,13 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "navigation"; // User might have next/navigation
 import { useRouter as useNextRouter } from "next/navigation";
-import { ChevronLeft, Music2, Play, Pause, Volume2, CloudRain, Coffee, Trees, Wind } from "lucide-react";
+import { ChevronLeft, Music2, Play, Volume2, CloudRain, Coffee, Trees } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const SOUNDS = [
+interface Sound {
+  id: string;
+  name: string;
+  icon: JSX.Element;
+  color: string;
+  image: string;
+  url: string;
+}
+
+const SOUNDS: Sound[] = [
   { 
     id: "rain", 
     name: "Soft Rain", 

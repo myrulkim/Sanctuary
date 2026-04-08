@@ -1,16 +1,15 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { PenLine, Sparkles, BookOpen, Wind, Quote, Eye, Music2, Activity } from "lucide-react";
+import { Sparkles, BookOpen, Wind, Quote, Eye, Music2, Activity } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
-import { getTodayMood, getWeeklyMoods, getRecentMoods } from "@/lib/firebase/firestore";
-import { MOODS, getMoodConfig } from "@/lib/constants/moods";
+import { getWeeklyMoods, getRecentMoods } from "@/lib/firebase/firestore";
+import { MOODS } from "@/lib/constants/moods";
 import { useTranslation } from "@/contexts/language-context";
 import { getGreeting, cn } from "@/lib/utils";
 import { MoodEntry } from "@/lib/types";
-import { BreathingCard } from "@/components/dashboard/breathing-card";
 
 export default function DashboardPage() {
   const { user } = useAuth();
