@@ -21,8 +21,8 @@ const SOUNDS: Sound[] = [
     name: "Soft Rain", 
     icon: <CloudRain className="w-5 h-5" />, 
     color: "bg-blue-500", 
-    image: "/calm_cabin.png",
-    url: "l5V-mF673tU"
+    image: "/calm_forest.png",
+    url: "l5V-mF673tU" // Better Rain
   },
   { 
     id: "cafe", 
@@ -30,7 +30,7 @@ const SOUNDS: Sound[] = [
     icon: <Coffee className="w-5 h-5" />, 
     color: "bg-amber-600", 
     image: "/calm_cafe.png",
-    url: "gaGrHmU_y80"
+    url: "gaGrHmU_y80" // Better Cafe
   },
   { 
     id: "forest", 
@@ -38,7 +38,7 @@ const SOUNDS: Sound[] = [
     icon: <Trees className="w-5 h-5" />, 
     color: "bg-emerald-600", 
     image: "/calm_forest.png",
-    url: "6wn8TJR0GP8"
+    url: "6wn8TJR0GP8" // Better Forest
   },
   { 
     id: "zen", 
@@ -46,7 +46,7 @@ const SOUNDS: Sound[] = [
     icon: <Music2 className="w-5 h-5" />, 
     color: "bg-purple-600", 
     image: "/calm_zen.png",
-    url: "5CQu9TjU_yM"
+    url: "5CQu9TjU_yM" // Better Zen
   }
 ];
 
@@ -80,8 +80,9 @@ export default function RelaxingSoundsPage() {
         {activeSound && isPlaying && (
           <iframe
             key={activeSound}
-            src={`https://www.youtube.com/embed/${currentSound?.url}?autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&loop=1&playlist=${currentSound?.url}&enablejsapi=1&origin=${origin}`}
-            allow="autoplay; encrypted-media"
+            src={`https://www.youtube.com/embed/${currentSound?.url}?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&loop=1&playlist=${currentSound?.url}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            className="w-full h-full"
             title="Audio Player"
           ></iframe>
         )}
