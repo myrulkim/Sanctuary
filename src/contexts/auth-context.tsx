@@ -7,7 +7,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { onAuthStateChanged, type User } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { onAuthStateChanged, setPersistence, browserLocalPersistence, type User } from "firebase/auth";
 import { auth } from "@/lib/firebase/config";
 
 interface AuthContextType {
@@ -25,6 +26,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Force local persistence for better mobile experience
+    setPersistence(auth, browserLocalPersistence);
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setLoading(false);
