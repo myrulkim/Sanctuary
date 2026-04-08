@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Sparkles, BookOpen, Wind, Quote, Eye, Music2, Activity } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
-import { getWeeklyMoods, getRecentMoods } from "@/lib/firebase/firestore";
+import { getTodayMood, getWeeklyMoods, getRecentMoods } from "@/lib/firebase/firestore";
 import { MOODS } from "@/lib/constants/moods";
 import { useTranslation } from "@/contexts/language-context";
 import { getGreeting, cn } from "@/lib/utils";
