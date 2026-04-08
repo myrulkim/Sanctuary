@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter as useNextRouter } from "next/navigation";
 import { ChevronLeft, Music2, Play, Volume2, CloudRain, Coffee, Trees } from "lucide-react";
@@ -54,6 +54,13 @@ export default function RelaxingSoundsPage() {
   const router = useNextRouter();
   const [activeSound, setActiveSound] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [origin, setOrigin] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setOrigin(window.location.origin);
+    }
+  }, []);
 
   const toggleSound = (id: string) => {
     if (activeSound === id) {
@@ -73,7 +80,7 @@ export default function RelaxingSoundsPage() {
         {activeSound && isPlaying && (
           <iframe
             key={activeSound}
-            src={`https://www.youtube.com/embed/${currentSound?.url}?autoplay=${isPlaying ? 1 : 0}&mute=0&controls=0&modestbranding=1&rel=0&loop=1&playlist=${currentSound?.url}&enablejsapi=1`}
+            src={`https://www.youtube.com/embed/${currentSound?.url}?autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&loop=1&playlist=${currentSound?.url}&enablejsapi=1&origin=${origin}`}
             allow="autoplay; encrypted-media"
             title="Audio Player"
           ></iframe>
