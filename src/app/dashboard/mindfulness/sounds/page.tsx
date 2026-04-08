@@ -75,18 +75,20 @@ export default function RelaxingSoundsPage() {
 
   return (
     <div className="min-h-screen bg-emerald-50/30 flex flex-col items-center">
-      {/* Invisible Audio Source (Must not be fully hidden by opacity: 0 to allow audio) */}
-      <div className="fixed bottom-0 right-0 w-1 h-1 pointer-events-none opacity-[0.01] overflow-hidden z-[-1]">
-        {activeSound && isPlaying && (
+      {/* Optimized Audio Bridge */}
+      {activeSound && (
+        <div className={cn(
+          "fixed bottom-0 right-0 w-1 h-1 pointer-events-none opacity-[0.01] overflow-hidden z-[-1]",
+          !isPlaying && "hidden"
+        )}>
           <iframe
-            key={activeSound}
-            src={`https://www.youtube.com/embed/${currentSound?.url}?autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&loop=1&playlist=${currentSound?.url}&enablejsapi=1`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            src={`https://www.youtube.com/embed/${currentSound?.url}?autoplay=1&mute=0&controls=0&loop=1&playlist=${currentSound?.url}`}
+            allow="autoplay; encrypted-media"
             className="w-full h-full"
-            title="Audio Player"
+            title="Audio Engine"
           ></iframe>
-        )}
-      </div>
+        </div>
+      )}
 
       <div className="w-full max-w-lg mt-8 px-6 flex items-center justify-between z-10">
         <button onClick={() => router.back()} className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-slate-50 transition-colors">
