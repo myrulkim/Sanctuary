@@ -1,13 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { ChevronLeft, Plus, Save, History, Book, Trash2, CheckCircle2, Edit3, X } from "lucide-react";
+import { ChevronLeft, Save, History, Book, Edit3, X, CheckCircle2 } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 import { saveDiaryEntry, getDiaryEntries, updateDiaryEntry } from "@/lib/firebase/firestore";
 import { useTranslation } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
+
+interface DiaryEntry {
+  id: string;
+  content: string;
+  date: string;
+}
 
 export default function DiaryPage() {
   const { user } = useAuth();
@@ -16,7 +22,7 @@ export default function DiaryPage() {
   
   const [content, setContent] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [entries, setEntries] = useState<any[]>([]);
+  const [entries, setEntries] = useState<DiaryEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
