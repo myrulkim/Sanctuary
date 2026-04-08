@@ -75,12 +75,12 @@ export default function RelaxingSoundsPage() {
 
   return (
     <div className="min-h-screen bg-emerald-50/30 flex flex-col items-center">
-      {/* Invisible Audio Source (Active only on valid focus/interaction) */}
-      <div className="absolute opacity-0 pointer-events-none w-1 h-1 overflow-hidden">
+      {/* Invisible Audio Source (Must not be fully hidden by opacity: 0 to allow audio) */}
+      <div className="fixed bottom-0 right-0 w-1 h-1 pointer-events-none opacity-[0.01] overflow-hidden z-[-1]">
         {activeSound && isPlaying && (
           <iframe
             key={activeSound}
-            src={`https://www.youtube.com/embed/${currentSound?.url}?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&loop=1&playlist=${currentSound?.url}`}
+            src={`https://www.youtube.com/embed/${currentSound?.url}?autoplay=1&mute=0&controls=0&modestbranding=1&rel=0&loop=1&playlist=${currentSound?.url}&enablejsapi=1`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             className="w-full h-full"
             title="Audio Player"
