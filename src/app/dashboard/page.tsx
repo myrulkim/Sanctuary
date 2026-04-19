@@ -23,28 +23,34 @@ export default function DashboardPage() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [centeredMood, setCenteredMood] = useState<string>("neutral");
 
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
   const handleScroll = () => {
-    if (!carouselRef.current) return;
-    const container = carouselRef.current;
-    
-    const viewportCenter = container.scrollLeft + container.clientWidth / 2;
-    let minDistance = Infinity;
-    let closestIndex = 2;
+    if (scrollTimeout.current) return;
 
-    const children = Array.from(container.children);
-    children.forEach((child, index) => {
-       const childElement = child as HTMLElement;
-       const childCenter = childElement.offsetLeft + childElement.clientWidth / 2;
-       const distance = Math.abs(viewportCenter - childCenter);
-       if (distance < minDistance) {
-         minDistance = distance;
-         closestIndex = index;
-       }
-    });
-    
-    if (MOODS[closestIndex]) {
-      setCenteredMood(MOODS[closestIndex].type);
-    }
+    scrollTimeout.current = setTimeout(() => {
+      if (!carouselRef.current) return;
+      const container = carouselRef.current;
+      
+      const viewportCenter = container.scrollLeft + container.clientWidth / 2;
+      let minDistance = Infinity;
+      let closestIndex = 2;
+
+      const children = Array.from(container.children);
+      children.forEach((child, index) => {
+         const childElement = child as HTMLElement;
+         const childCenter = childElement.offsetLeft + childElement.clientWidth / 2;
+         const distance = Math.abs(viewportCenter - childCenter);
+         if (distance < minDistance) {
+           minDistance = distance;
+           closestIndex = index;
+         }
+      });
+      
+      if (MOODS[closestIndex]) {
+        setCenteredMood(MOODS[closestIndex].type);
+      }
+      scrollTimeout.current = null;
+    }, 100); // Only calculate every 100ms
   };
 
   useEffect(() => {
